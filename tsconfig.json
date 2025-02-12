@@ -1,13 +1,13 @@
 {
     "compilerOptions": {
-        "outDir": "js",
+        "outDir": "./dist/",
         "module": "esnext",
         "moduleResolution": "node",
         "resolveJsonModule": true,
         "esModuleInterop": true,
         "importHelpers": true,
         "alwaysStrict": true,
-        "target": "es5",
+        "target": "esnext",
         "baseUrl": "./",
         "skipLibCheck": true,
         "lib": [
@@ -17,7 +17,6 @@
             "es2017.object"
         ],
         "declaration": true,
-        "declarationDir": "./js/typings",
         "typeRoots": [ "./types", "./node_modules/@types"]
     },
     "include": [
