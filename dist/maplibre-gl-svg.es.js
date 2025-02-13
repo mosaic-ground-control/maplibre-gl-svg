@@ -169,7 +169,7 @@ class f {
               );
               x < 1 && (o.width = o.width * x, o.height = o.height * x);
             }
-            g.addImage(t, o), r[t] = h, a();
+            o.width === 0 && o.height === 0 && (o.width = l, o.height = s), g.addImage(t, o), r[t] = h, a();
           }, o.onerror = o.onabort = () => {
             c(`Failed to load "${t}" image.`);
           }, o.src = URL.createObjectURL(n);

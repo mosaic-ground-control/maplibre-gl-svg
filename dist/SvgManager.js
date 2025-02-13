@@ -73,6 +73,10 @@ export class SvgManager {
                                 imageElm.height = imageElm.height * scale;
                             }
                         }
+                        if (imageElm.width === 0 && imageElm.height === 0) {
+                            imageElm.width = maxWidth;
+                            imageElm.height = maxHeight;
+                        }
                         map.addImage(id, imageElm);
                         images[id] = imageSrc;
                         resolve();
