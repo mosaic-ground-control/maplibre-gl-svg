@@ -42,6 +42,7 @@ export class SvgManager {
     svg: string,
     maxWidth: number = 100,
     maxHeight: number = 100,
+    asSDF: boolean = false,
   ): Promise<void> {
     return new Promise((resolve, reject) => {
       const images = this._images;
@@ -106,7 +107,7 @@ export class SvgManager {
                 imageElm.height = maxHeight;
               }
 
-              map.addImage(id, imageElm);
+              map.addImage(id, imageElm, { sdf: asSDF });
               images[id] = imageSrc;
               resolve();
             };

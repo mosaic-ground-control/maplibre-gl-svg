@@ -29,7 +29,7 @@ export class SvgManager {
      * @param maxWidth The maximum width to allow the image to be. If the image exceeds this width it will be scaled down to fit. Default: 100
      * @param maxHeight The maximum height to allow the image to be. If the image exceeds this height it will be scaled down to fit. Default: 100
      */
-    add(id, svg, maxWidth = 100, maxHeight = 100) {
+    add(id, svg, maxWidth = 100, maxHeight = 100, asSDF = false) {
         return new Promise((resolve, reject) => {
             const images = this._images;
             const map = this._map;
@@ -77,7 +77,7 @@ export class SvgManager {
                             imageElm.width = maxWidth;
                             imageElm.height = maxHeight;
                         }
-                        map.addImage(id, imageElm);
+                        map.addImage(id, imageElm, { sdf: asSDF });
                         images[id] = imageSrc;
                         resolve();
                     };

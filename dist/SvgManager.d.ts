@@ -26,7 +26,7 @@ export declare class SvgManager {
      * @param maxWidth The maximum width to allow the image to be. If the image exceeds this width it will be scaled down to fit. Default: 100
      * @param maxHeight The maximum height to allow the image to be. If the image exceeds this height it will be scaled down to fit. Default: 100
      */
-    add(id: string, svg: string, maxWidth?: number, maxHeight?: number): Promise<void>;
+    add(id: string, svg: string, maxWidth?: number, maxHeight?: number, asSDF?: boolean): Promise<void>;
     /**
      * Removes all SVG images loaded into the maps sprite.
      */

@@ -116,7 +116,7 @@ class i {
     return c = c.replace(/{color}/g, l).replace(/{secondaryColor}/g, s).replace(/{text}/g, e || ""), c;
   }
 }
-class f {
+class m {
   /************************
    * Private properties
    ***********************/
@@ -143,11 +143,11 @@ class f {
    * @param maxWidth The maximum width to allow the image to be. If the image exceeds this width it will be scaled down to fit. Default: 100
    * @param maxHeight The maximum height to allow the image to be. If the image exceeds this height it will be scaled down to fit. Default: 100
    */
-  add(t, e, l = 100, s = 100) {
-    return new Promise((a, c) => {
-      const r = this._images, g = this._map;
-      if (r[t]) {
-        a();
+  add(t, e, l = 100, s = 100, a = !1) {
+    return new Promise((c, r) => {
+      const d = this._images, g = this._map;
+      if (d[t]) {
+        c();
         return;
       }
       if (typeof e == "string") {
@@ -169,12 +169,12 @@ class f {
               );
               x < 1 && (o.width = o.width * x, o.height = o.height * x);
             }
-            o.width === 0 && o.height === 0 && (o.width = l, o.height = s), g.addImage(t, o), r[t] = h, a();
+            o.width === 0 && o.height === 0 && (o.width = l, o.height = s), g.addImage(t, o, { sdf: a }), d[t] = h, c();
           }, o.onerror = o.onabort = () => {
-            c(`Failed to load "${t}" image.`);
+            r(`Failed to load "${t}" image.`);
           }, o.src = URL.createObjectURL(n);
         }).catch(() => {
-          c(`Failed to load "${t}" image.`);
+          r(`Failed to load "${t}" image.`);
         });
       }
     });
@@ -249,6 +249,6 @@ class f {
   }
 }
 export {
-  f as SvgManager,
+  m as SvgManager,
   i as SvgTemplateManager
 };
