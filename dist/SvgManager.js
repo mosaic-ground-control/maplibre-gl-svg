@@ -78,7 +78,7 @@ export class SvgManager {
                             imageElm.height = maxHeight;
                         }
                         map.addImage(id, imageElm, { sdf: asSDF });
-                        images[id] = imageSrc;
+                        images[id] = imageElm;
                         resolve();
                     };
                     // Reject if the blob failed to load in the element.
@@ -153,13 +153,7 @@ export class SvgManager {
         Object.keys(self._images).forEach((id) => {
             //Verify map doesn't already have the image in the sprite.
             if (!self._map.hasImage(id)) {
-                //Load the image source into an image element.
-                const imageElm = new Image();
-                imageElm.onload = () => {
-                    //Add the image to the map's image sprite.
-                    self._map.addImage(id, imageElm);
-                };
-                imageElm.src = this._images[id];
+                self._map.addImage(id, this._images[id]);
             }
         });
     }

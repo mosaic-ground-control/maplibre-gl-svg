@@ -8,9 +8,9 @@ class i {
    * @param template The SVG template to add. Supports `{color}`, `{secondaryColor}`, `{scale}`, and `{text}`
    * @param override Specifies if it should override existing templates if one with the same name already exists.
    */
-  static addTemplate(t, e, l) {
-    const s = i._imageTemplates;
-    (l || !s[t.toLowerCase()]) && (s[t.toLowerCase()] = e);
+  static addTemplate(t, e, c) {
+    const l = i._imageTemplates;
+    (c || !l[t.toLowerCase()]) && (l[t.toLowerCase()] = e);
   }
   /**
    * Inflates a template and converts it into an HTMLElement.
@@ -21,9 +21,9 @@ class i {
    * @param scale Scale of the template.
    * @returns 
    */
-  static getElement(t, e = "", l = "#1A73AA", s = "white", a = 1) {
-    const c = document.createElement("div");
-    return c.innerHTML = i._applyStyle(t, e, l, s, a), c;
+  static getElement(t, e = "", c = "#1A73AA", l = "white", r = 1) {
+    const o = document.createElement("div");
+    return o.innerHTML = i._applyStyle(t, e, c, l, r), o;
   }
   /**
    * Retrieves an SVG template by name.
@@ -32,13 +32,13 @@ class i {
    */
   static getTemplate(t, e = 1) {
     e = Math.abs(e || 1);
-    const l = i._imageTemplates;
-    if (typeof t == "string" && l[t.toLowerCase()]) {
-      const s = l[t.toLowerCase()], a = /calc\(([0-9.]+)[px]*\s*\*\s*\{scale\}\)/gi;
-      let c = s, r = a.exec(s);
-      for (; r; )
-        c = c.replace(r[0], parseFloat(r[1]) * e + ""), r = a.exec(s);
-      return c = c.replace("{scale}", e + ""), c;
+    const c = i._imageTemplates;
+    if (typeof t == "string" && c[t.toLowerCase()]) {
+      const l = c[t.toLowerCase()], r = /calc\(([0-9.]+)[px]*\s*\*\s*\{scale\}\)/gi;
+      let o = l, a = r.exec(l);
+      for (; a; )
+        o = o.replace(a[0], parseFloat(a[1]) * e + ""), a = r.exec(l);
+      return o = o.replace("{scale}", e + ""), o;
     } else
       throw new Error("Invalid templateName.");
   }
@@ -110,10 +110,10 @@ class i {
    * @param scale Scale of the template.
    * @returns HTML string of the filled template.
    */
-  static _applyStyle(t, e = "", l = "#1A73AA", s = "white", a = 1) {
-    l = l || "#1A73AA", s = s || "#fff";
-    let c = i.getTemplate(t, a);
-    return c = c.replace(/{color}/g, l).replace(/{secondaryColor}/g, s).replace(/{text}/g, e || ""), c;
+  static _applyStyle(t, e = "", c = "#1A73AA", l = "white", r = 1) {
+    c = c || "#1A73AA", l = l || "#fff";
+    let o = i.getTemplate(t, r);
+    return o = o.replace(/{color}/g, c).replace(/{secondaryColor}/g, l).replace(/{text}/g, e || ""), o;
   }
 }
 class m {
@@ -143,11 +143,11 @@ class m {
    * @param maxWidth The maximum width to allow the image to be. If the image exceeds this width it will be scaled down to fit. Default: 100
    * @param maxHeight The maximum height to allow the image to be. If the image exceeds this height it will be scaled down to fit. Default: 100
    */
-  add(t, e, l = 100, s = 100, a = !1) {
-    return new Promise((c, r) => {
+  add(t, e, c = 100, l = 100, r = !1) {
+    return new Promise((o, a) => {
       const d = this._images, g = this._map;
       if (d[t]) {
-        c();
+        o();
         return;
       }
       if (typeof e == "string") {
@@ -160,21 +160,21 @@ class m {
           h,
           "Image"
         )), fetch(w.url, w).then((n) => n.blob()).then((n) => {
-          const o = new Image();
-          o.onload = () => {
-            if (l > 0 && s > 0 && (o.width > l || o.height > s)) {
+          const s = new Image();
+          s.onload = () => {
+            if (c > 0 && l > 0 && (s.width > c || s.height > l)) {
               const x = Math.min(
-                l / o.width,
-                s / o.height
+                c / s.width,
+                l / s.height
               );
-              x < 1 && (o.width = o.width * x, o.height = o.height * x);
+              x < 1 && (s.width = s.width * x, s.height = s.height * x);
             }
-            o.width === 0 && o.height === 0 && (o.width = l, o.height = s), g.addImage(t, o, { sdf: a }), d[t] = h, c();
-          }, o.onerror = o.onabort = () => {
-            r(`Failed to load "${t}" image.`);
-          }, o.src = URL.createObjectURL(n);
+            s.width === 0 && s.height === 0 && (s.width = c, s.height = l), g.addImage(t, s, { sdf: r }), d[t] = s, o();
+          }, s.onerror = s.onabort = () => {
+            a(`Failed to load "${t}" image.`);
+          }, s.src = URL.createObjectURL(n);
         }).catch(() => {
-          r(`Failed to load "${t}" image.`);
+          a(`Failed to load "${t}" image.`);
         });
       }
     });
@@ -215,15 +215,15 @@ class m {
    * @param scale Specifies how much to scale the template. For best results, scale the icon to the maximum size you want to display it on the map, then use the symbol layers icon size option to scale down if needed. This will reduce blurriness due to scaling. Default: 1
    * @param text Text to display in the template. Rarely used with symbols since symbol layers have its own text support.
    */
-  createFromTemplate(t, e, l = "#1A73AA", s = "white", a = 1, c = "") {
-    const r = i._applyStyle(
+  createFromTemplate(t, e, c = "#1A73AA", l = "white", r = 1, o = "") {
+    const a = i._applyStyle(
       e,
+      o,
       c,
       l,
-      s,
-      a
+      r
     );
-    return this.add(t, r);
+    return this.add(t, a);
   }
   /**
    * Removes an SVG image from the maps image sprite.
@@ -239,12 +239,7 @@ class m {
   reload() {
     const t = this;
     Object.keys(t._images).forEach((e) => {
-      if (!t._map.hasImage(e)) {
-        const l = new Image();
-        l.onload = () => {
-          t._map.addImage(e, l);
-        }, l.src = this._images[e];
-      }
+      t._map.hasImage(e) || t._map.addImage(e, this._images[e]);
     });
   }
 }
